@@ -1,7 +1,7 @@
 import type { NavItem } from '@/types/common'
 
 export const APP_NAME = '日程安排'
-export const APP_VERSION = '0.3.0'
+export const APP_VERSION = '0.4.0'
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
 export const REQUEST_TIMEOUT = 15000
 

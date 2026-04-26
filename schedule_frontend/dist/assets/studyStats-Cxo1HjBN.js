@@ -1,0 +1,1 @@
+import{K as a}from"./index-CbLFY-FA.js";function y(t){return a("/api/study-stats/overview",{query:t})}async function n(t){return(await a("/api/study-stats/by-subject",{query:t})).items}async function u(t){return(await a("/api/study-stats/by-task",{query:t})).items}async function c(t){return(await a("/api/study-stats/by-day",{query:t})).items}export{n as a,u as b,c,y as f};

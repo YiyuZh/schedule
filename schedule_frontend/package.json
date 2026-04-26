@@ -1,11 +1,12 @@
 {
   "name": "schedule-frontend",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build:desktop": "vue-tsc --noEmit && vite build --mode desktop",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",

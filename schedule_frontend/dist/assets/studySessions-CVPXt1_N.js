@@ -1,0 +1,1 @@
+import{K as t,L as n,N as u}from"./index-CbLFY-FA.js";function o(s){return t("/api/study-sessions",{query:s})}function a(s){return t(`/api/study-sessions/${s}`)}function d(s,e){return n(`/api/study-sessions/${s}`,{body:e})}function r(s){return u(`/api/study-sessions/${s}`)}function p(s){return t("/api/study-sessions/export",{query:s})}export{a,r as d,p as e,o as f,d as u};

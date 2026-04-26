@@ -1,0 +1,7 @@
+.release-build/
+release/*.exe
+schedule_frontend/src-tauri/binaries/*.exe
+schedule_frontend/src-tauri/binaries/*.pdb
+schedule_backend/**/__pycache__/
+schedule_frontend/node_modules/
+schedule_frontend/src-tauri/target/

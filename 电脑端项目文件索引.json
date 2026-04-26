@@ -1,7 +1,8 @@
 {
   "project": "日程安排电脑端",
   "path": "D:/apps/schedule",
-  "updated_on": "2026-04-25",
+  "updated_on": "2026-04-26",
+  "status": "Windows NSIS 一体化安装包已可构建",
   "read_before_modify": [
     "电脑端任务记忆文档.md",
     "电脑端项目文件索引.md",
@@ -16,12 +17,14 @@
         "FastAPI",
         "SQLAlchemy 2.x",
         "Pydantic v2",
-        "SQLite"
+        "SQLite",
+        "PyInstaller"
       ],
-      "index_docs": [
-        "schedule_backend/任务记忆文档.md",
-        "schedule_backend/项目文件索引.md",
-        "schedule_backend/项目文件索引.json"
+      "entry": "schedule_backend/run.py",
+      "env": [
+        "SCHEDULE_HOST",
+        "SCHEDULE_PORT",
+        "SCHEDULE_DATA_DIR"
       ]
     },
     "frontend": {
@@ -33,15 +36,20 @@
         "Pinia",
         "Vue Router",
         "Element Plus"
-      ]
+      ],
+      "desktop_env": "schedule_frontend/.env.desktop"
     },
     "desktop_shell": {
       "path": "schedule_frontend/src-tauri",
       "stack": [
         "Tauri 2.x",
         "Rust",
-        "NSIS"
-      ]
+        "NSIS",
+        "tauri-plugin-shell"
+      ],
+      "sidecar": "schedule_frontend/src-tauri/binaries/schedule-backend-x86_64-pc-windows-msvc.exe",
+      "config": "schedule_frontend/src-tauri/tauri.conf.json",
+      "entry": "schedule_frontend/src-tauri/src/main.rs"
     }
   },
   "launcher_files": [
@@ -52,6 +60,17 @@
     "scripts/start-backend.ps1",
     "scripts/start-frontend.ps1"
   ],
+  "release_files": [
+    "build-release.ps1",
+    "build-release.bat",
+    "release/Schedule_0.4.0_x64_setup.exe"
+  ],
+  "runtime": {
+    "dev_api": "http://127.0.0.1:8000",
+    "desktop_api": "http://127.0.0.1:18765",
+    "desktop_database": "%APPDATA%/日程安排/data/app.db",
+    "cloud_sync_url": "https://schedule-sync.zenithy.art"
+  },
   "verification": {
     "backend": [
       "cd schedule_backend && pytest -q",
@@ -59,8 +78,11 @@
     ],
     "frontend": [
       "cd schedule_frontend && npm test -- --run",
-      "cd schedule_frontend && npm run build",
+      "cd schedule_frontend && npm run build:desktop",
       "cd schedule_frontend && npm run tauri:build"
+    ],
+    "release": [
+      "cd D:/apps/schedule && ./build-release.ps1"
     ]
   }
 }
