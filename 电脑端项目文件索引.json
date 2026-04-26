@@ -1,0 +1,66 @@
+{
+  "project": "日程安排电脑端",
+  "path": "D:/apps/schedule",
+  "updated_on": "2026-04-25",
+  "read_before_modify": [
+    "电脑端任务记忆文档.md",
+    "电脑端项目文件索引.md",
+    "电脑端项目文件索引.json",
+    "任务记忆文档.md",
+    "三端联通上线操作手册.md"
+  ],
+  "parts": {
+    "backend": {
+      "path": "schedule_backend",
+      "stack": [
+        "FastAPI",
+        "SQLAlchemy 2.x",
+        "Pydantic v2",
+        "SQLite"
+      ],
+      "index_docs": [
+        "schedule_backend/任务记忆文档.md",
+        "schedule_backend/项目文件索引.md",
+        "schedule_backend/项目文件索引.json"
+      ]
+    },
+    "frontend": {
+      "path": "schedule_frontend",
+      "stack": [
+        "Vue 3",
+        "TypeScript",
+        "Vite",
+        "Pinia",
+        "Vue Router",
+        "Element Plus"
+      ]
+    },
+    "desktop_shell": {
+      "path": "schedule_frontend/src-tauri",
+      "stack": [
+        "Tauri 2.x",
+        "Rust",
+        "NSIS"
+      ]
+    }
+  },
+  "launcher_files": [
+    "start-dev.ps1",
+    "start-dev.bat",
+    "stop-dev.ps1",
+    "stop-dev.bat",
+    "scripts/start-backend.ps1",
+    "scripts/start-frontend.ps1"
+  ],
+  "verification": {
+    "backend": [
+      "cd schedule_backend && pytest -q",
+      "cd schedule_backend && python -c \"from app.main import app; print(app.title)\""
+    ],
+    "frontend": [
+      "cd schedule_frontend && npm test -- --run",
+      "cd schedule_frontend && npm run build",
+      "cd schedule_frontend && npm run tauri:build"
+    ]
+  }
+}

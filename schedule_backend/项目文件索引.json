@@ -1,0 +1,45 @@
+{
+  "project": "日程安排电脑端后端",
+  "path": "D:/apps/schedule/schedule_backend",
+  "updated_on": "2026-04-25",
+  "stack": [
+    "FastAPI",
+    "SQLAlchemy 2.x",
+    "Pydantic v2",
+    "SQLite",
+    "pytest"
+  ],
+  "read_before_modify": [
+    "任务记忆文档.md",
+    "项目文件索引.md",
+    "项目文件索引.json",
+    "../任务记忆文档.md",
+    "../三端联通上线操作手册.md"
+  ],
+  "entry_files": [
+    "run.py",
+    "app/main.py"
+  ],
+  "sync_files": [
+    "app/api/sync.py",
+    "app/core/sync_schema.py",
+    "app/models/sync.py",
+    "app/services/sync_service.py",
+    "app/services/sync_client.py",
+    "app/services/sync_mapper.py",
+    "tests/test_sync_local.py"
+  ],
+  "synced_entities": [
+    "task_template",
+    "daily_task",
+    "event",
+    "course",
+    "study_session",
+    "long_term_task",
+    "long_term_subtask"
+  ],
+  "verification": {
+    "pytest": "pytest -q",
+    "import": "python -c \"from app.main import app; print(app.title)\""
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "project_name": "日程安排",
+  "root_path": "D:/apps/schedule",
+  "updated_on": "2026-04-26",
+  "state": "三端同步闭环第一版已完成，已加入每日任务状态轻量准实时自动同步，手机端进入最终功能性基线并冻结。",
+  "mobile_freeze_policy": {
+    "status": "frozen_final_mobile_baseline",
+    "rule": "维护电脑端、云服务器端、部署脚本、Caddy 或管理后台时，默认不得修改 schedule_mobile。",
+    "allowed_changes": [
+      "iOS 打包发布所需的版本号、签名、证书或 Capacitor 同步产物",
+      "手机端无法启动、无法登录、无法同步或严重数据丢失的紧急修复",
+      "云端无法通过兼容层支持旧手机端时的最小协议兼容修复"
+    ]
+  },
+  "read_before_modify": [
+    "任务记忆文档.md",
+    "项目文件索引.md",
+    "项目文件索引.json",
+    "三端联通上线操作手册.md"
+  ],
+  "root_documents": [
+    "README.md",
+    "schedule.prd.md",
+    "三端联通上线操作手册.md",
+    "手机端操作手册.md",
+    "任务记忆文档.md",
+    "项目文件索引.md",
+    "项目文件索引.json",
+    "电脑端任务记忆文档.md",
+    "电脑端项目文件索引.md",
+    "电脑端项目文件索引.json"
+  ],
+  "desktop": {
+    "name": "Windows 电脑端",
+    "memory_doc": "电脑端任务记忆文档.md",
+    "index_doc": "电脑端项目文件索引.md",
+    "index_json": "电脑端项目文件索引.json",
+    "backend": {
+      "path": "schedule_backend",
+      "memory_doc": "schedule_backend/任务记忆文档.md",
+      "index_doc": "schedule_backend/项目文件索引.md",
+      "index_json": "schedule_backend/项目文件索引.json"
+    },
+    "frontend": {
+      "path": "schedule_frontend",
+      "tauri_path": "schedule_frontend/src-tauri"
+    }
+  },
+  "mobile": {
+    "name": "手机端",
+    "path": "schedule_mobile",
+    "root_operation_manual": "手机端操作手册.md",
+    "operation_manual": "schedule_mobile/手机端操作手册.md",
+    "memory_doc": "schedule_mobile/任务记忆文档.md",
+    "index_doc": "schedule_mobile/项目文件索引.md",
+    "index_json": "schedule_mobile/项目文件索引.json",
+    "stack": [
+      "Vue 3",
+      "TypeScript",
+      "Vite",
+      "Pinia",
+      "Vue Router",
+      "Capacitor",
+      "IndexedDB"
+    ],
+    "final_baseline": [
+      "固定任务模板自动生成每日任务",
+      "AI 解析保留单独开始时间",
+      "日程事件编辑删除",
+      "push accepted_items 后本地实体标记已同步",
+      "本地变更 3 秒防抖自动上传",
+      "前台每 45 秒自动拉取",
+      "自动同步状态可观察",
+      "后续只做紧急修复、打包发布和协议兼容"
+    ]
+  },
+  "cloud_sync_server": {
+    "name": "云同步服务端",
+    "path": "D:/apps/schedule_sync_server",
+    "deploy_path": "/opt/apps/schedule-sync",
+    "domain": "https://schedule-sync.zenithy.art",
+    "gateway": "/opt/apps/hiremate/Caddyfile",
+    "caddy_container": "hiremate-caddy",
+    "docker_network": "shared_gateway",
+    "postgres_user": "autsky",
+    "database_url_user": "autsky",
+    "memory_doc": "D:/apps/schedule_sync_server/任务记忆文档.md",
+    "index_doc": "D:/apps/schedule_sync_server/项目文件索引.md",
+    "index_json": "D:/apps/schedule_sync_server/项目文件索引.json",
+    "stack": [
+      "FastAPI",
+      "SQLAlchemy 2.x",
+      "Pydantic v2",
+      "PostgreSQL",
+      "Docker Compose",
+      "Alembic"
+    ],
+    "sync_extensions": [
+      "accepted_items",
+      "sync_scope=daily_task_status",
+      "changed_fields",
+      "每日任务状态后改覆盖"
+    ]
+  },
+  "archive": {
+    "path": "初期构建md",
+    "role": "早期方案、旧 Prompt、阶段性操作流程归档"
+  },
+  "verification": {
+    "desktop_backend": [
+      "cd schedule_backend && pytest -q",
+      "cd schedule_backend && python -c \"from app.main import app; print(app.title)\""
+    ],
+    "desktop_frontend": [
+      "cd schedule_frontend && npm test -- --run",
+      "cd schedule_frontend && npm run build",
+      "cd schedule_frontend && npm run tauri:build"
+    ],
+    "mobile": [
+      "cd schedule_mobile && npm test -- --run",
+      "cd schedule_mobile && npm run build",
+      "cd schedule_mobile && npm run cap:sync"
+    ],
+    "cloud_sync_server": [
+      "cd D:/apps/schedule_sync_server && python -m pytest -q",
+      "cd D:/apps/schedule_sync_server && python -c \"from app.main import app; print(app.title)\""
+    ]
+  }
+}
